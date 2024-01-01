@@ -7,6 +7,8 @@ import { useEffect, useRef, useState } from 'react';
 import RestaurantRecommendView from '../components/RestaurantRecommendView';
 import LoadSpinner from '../components/LoadSpinner';
 import { track } from '@vercel/analytics';
+import { logEvent } from 'firebase/analytics';
+import { analytics } from '../firebase';
 
 const restaurants = [
   "스시로지", 
@@ -97,6 +99,9 @@ const MainPage = () => {
     setIsOpenModal(true)
     setTimeout(() => {
       const randomIndex = Math.floor(Math.random() * restaurants.length)
+      logEvent(analytics, 'random-click', {
+        restaurant: restaurants[randomIndex]
+      });
       setSelectedRestaurant(restaurants[randomIndex])
       setIsLoading(false)
     }, 300)
