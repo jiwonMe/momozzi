@@ -3,7 +3,7 @@ import MomozziLogo from '../assets/momozzi-logo.svg';
 import DiceIcon from '../assets/dice-icon.svg';
 import VerticalSpace from '../components/VerticalSpace';
 import Modal from '../components/Modal';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import RestaurantRecommendView from '../components/RestaurantRecommendView';
 import LoadSpinner from '../components/LoadSpinner';
 import { track } from '@vercel/analytics';
@@ -75,7 +75,20 @@ const MainPage = () => {
   // loading state
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
+  const clickCountRef = useRef<number>(0)
+
   const handleRandomClickWithLoading = () => {
+    // 클릭 수 증가
+    clickCountRef.current += 1;
+
+    // 클릭 수가 20을 초과하면 alert를 띄우고 함수를 종료
+    if (clickCountRef.current > 20) {
+      alert('1초 동안의 클릭 수가 너무 많습니다. 잠시 후 다시 시도해주세요.');
+      // 자동새로고침
+      window.location.reload();
+      return;
+    }
+
     track('random-click');
     setIsLoading(true)
     setIsOpenModal(true)
@@ -85,6 +98,17 @@ const MainPage = () => {
       setIsLoading(false)
     }, 300)
   }
+
+  // 클릭 수를 1초마다 초기화
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      clickCountRef.current = 0;
+    }, 1000);
+
+    return () => {
+      clearInterval(intervalId);
+    }
+  }, []);
 
   // esc 키를 누르면 모달을 닫는다.
   const handleKeyDown = (e: any) => {
