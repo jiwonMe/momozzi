@@ -32,6 +32,6 @@ const ViewportLayout = styled.div`
 
   height: 100%;
 
-  border-left: 1px solid #eee;
-  border-right: 1px solid #eee;
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
 `;
