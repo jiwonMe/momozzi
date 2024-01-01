@@ -88,6 +88,7 @@ const MainPage = () => {
         window.location.reload();
       }
       , 1000);
+
       return;
     }
 
