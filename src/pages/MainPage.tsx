@@ -3,7 +3,7 @@ import MomozziLogo from '../assets/momozzi-logo.svg';
 import DiceIcon from '../assets/dice-icon.svg';
 import VerticalSpace from '../components/VerticalSpace';
 import Modal from '../components/Modal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import RestaurantRecommendView from '../components/RestaurantRecommendView';
 import LoadSpinner from '../components/LoadSpinner';
 import { track } from '@vercel/analytics';
@@ -85,6 +85,21 @@ const MainPage = () => {
       setIsLoading(false)
     }, 300)
   }
+
+  // esc 키를 누르면 모달을 닫는다.
+  const handleKeyDown = (e: any) => {
+    if (e.key === 'Escape') {
+      setIsOpenModal(false)
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  });
 
   return (
     <Layout>
