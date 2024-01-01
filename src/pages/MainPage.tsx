@@ -95,6 +95,10 @@ const MainPage = () => {
         <img src={DiceIcon} alt="Dice Icon" />
         <span>랜덤돌리기</span>
       </RandomButton>
+      <VerticalSpace size={32} />
+      <a href="https://www.instagram.com/jiwon.me/">
+        @jiwon.me
+      </a>
       <Modal isOpen={isOpenModal}>
         <ModalInner>
           {
@@ -120,6 +124,18 @@ const Layout = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  color: #4D5355;
+  font-family: NEXON Lv2 Gothic;
+  font-size: 14px;
+
+  a {
+    color: #8c9294;
+    font-family: NEXON Lv2 Gothic;
+    font-size: 14px;
+    font-style: normal;
+    line-height: 20.619px; /* 185.119% */
+  }
 `
 
 const RandomButton = styled.button`
