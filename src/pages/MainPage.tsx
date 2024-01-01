@@ -6,6 +6,7 @@ import Modal from '../components/Modal';
 import { useState } from 'react';
 import RestaurantRecommendView from '../components/RestaurantRecommendView';
 import LoadSpinner from '../components/LoadSpinner';
+import { track } from '@vercel/analytics';
 
 const restaurants = [
   "스시로지", 
@@ -75,6 +76,7 @@ const MainPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const handleRandomClickWithLoading = () => {
+    track('random-click');
     setIsLoading(true)
     setIsOpenModal(true)
     setTimeout(() => {
