@@ -27,5 +27,7 @@ const RecommendationText = styled.div`
     font-size: 48px;
     font-family: 'NEXON Lv1 Gothic';
     font-weight: bold;
+
+    line-break: keep-all;
   }
 `;
