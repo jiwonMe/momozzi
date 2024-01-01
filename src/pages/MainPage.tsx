@@ -82,10 +82,12 @@ const MainPage = () => {
     clickCountRef.current += 1;
 
     // 클릭 수가 20을 초과하면 alert를 띄우고 함수를 종료
-    if (clickCountRef.current > 20) {
+    if (clickCountRef.current > 5) {
       alert('1초 동안의 클릭 수가 너무 많습니다. 잠시 후 다시 시도해주세요.');
-      // 자동새로고침
-      window.location.reload();
+      setTimeout(() => {
+        window.location.reload();
+      }
+      , 1000);
       return;
     }
 
