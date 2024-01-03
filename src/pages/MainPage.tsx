@@ -9,6 +9,7 @@ import LoadSpinner from '../components/LoadSpinner';
 import { track } from '@vercel/analytics';
 import { logEvent } from 'firebase/analytics';
 import { analytics } from '../firebase';
+import AdBanner from '../components/AdBanner';
 
 const restaurants = [
   "스시로지", 
@@ -136,7 +137,8 @@ const MainPage = () => {
 
   return (
     <Layout>
-      <VerticalSpace size={128} />
+      <AdBanner />
+      <VerticalSpace size={36} />
       <img src={MomozziLogo} alt="Momozzi Logo" />
       <VerticalSpace size={32} />
       <RandomButton
@@ -169,6 +171,8 @@ const MainPage = () => {
 export default MainPage
 
 const Layout = styled.div`
+  padding: 16px;
+
   /* center  */
   display: flex;
   flex-direction: column;
