@@ -1,9 +1,13 @@
 import styled from 'styled-components'
+import { useEffect, useRef, useState } from 'react';
+
+// ★ (1) react-router-dom 훅 불러오기
+import { useLocation } from 'react-router-dom';
+
 import MomozziLogo from '../assets/momozzi-logo.svg';
 import DiceIcon from '../assets/dice-icon.svg';
 import VerticalSpace from '../components/VerticalSpace';
 import Modal from '../components/Modal';
-import { useEffect, useRef, useState } from 'react';
 import RestaurantRecommendView from '../components/RestaurantRecommendView';
 import LoadSpinner from '../components/LoadSpinner';
 import { track } from '@vercel/analytics';
@@ -71,42 +75,79 @@ const restaurants = [
   "쉘",
 ];
 
+const miridihRestraunts = [
+  "CU편의점",
+  "KFC 구로디지털2점",
+  "解 한우해장",
+  "가스파스",
+  "강남교자",
+  "고마워케이크",
+  "고씨네 구로디지털단지점",
+  "김밥공감",
+  "누리한방삼계탕",
+  "능이랑",
+  "뚜레쥬르 구로IT점",
+  "라멘에반하다",
+  "로그커피",
+  "맥도날드 구로디지털점",
+  "맷돌로만 구로점",
+  "멘무샤",
+  "명품들깨칼국수",
+  "버거리 구로디지털단지점",
+  "벳남미식",
+  "본건강한상",
+  "봉추찜닭 구로지밸리몰점",
+  "부대찌개대사관 구로디지털본점",
+  "북촌손만두 구로대륭포스트타워1차점",
+  "브라운테이블",
+  "샐러디 구로디지털단지점",
+  "서울미나리 구로디지털점",
+  "서호돈가스",
+  "소공동식당",
+  "스무디앤핫도그",
+  "슬로우캘리 구로디지털단지점",
+];
 
 const MainPage = () => {
-  const [selectedRestaurant, setSelectedRestaurant] = useState<string>('')
-  const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
+  // (2) useLocation 훅으로 쿼리 문자열 가져오기
+  const { search } = useLocation();
 
-  // loading state
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [selectedRestaurant, setSelectedRestaurant] = useState<string>('');
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const clickCountRef = useRef<number>(0)
+  const clickCountRef = useRef<number>(0);
 
+  // (3) 클릭 시 사용할 배열 결정
   const handleRandomClickWithLoading = () => {
     // 클릭 수 증가
     clickCountRef.current += 1;
 
-    // 클릭 수가 20을 초과하면 alert를 띄우고 함수를 종료
+    // 클릭 수가 20을 초과하면 alert를 띄우고 함수를 종료 (현재는 5로 테스트)
     if (clickCountRef.current > 5) {
       alert('1초 동안의 클릭 수가 너무 많습니다. 잠시 후 다시 시도해주세요.');
       setTimeout(() => {
         window.location.reload();
-      }
-      , 1000);
-
+      }, 1000);
       return;
     }
 
     track('random-click');
-    setIsLoading(true)
-    setIsOpenModal(true)
+    setIsLoading(true);
+    setIsOpenModal(true);
+
+    // ?place=miridih 쿼리가 있으면 miridihRestraunts, 없으면 restaurants 배열 사용
+    const isMiridih = search.includes('place=miridih');
+    const targetRestaurants = isMiridih ? miridihRestraunts : restaurants;
+
     setTimeout(() => {
-      const randomIndex = Math.floor(Math.random() * restaurants.length)
-      logEvent(analytics, 'random-click', {
-        restaurant: restaurants[randomIndex]
-      });
-      setSelectedRestaurant(restaurants[randomIndex])
-      setIsLoading(false)
-    }, 300)
+      const randomIndex = Math.floor(Math.random() * targetRestaurants.length);
+      const chosenRestaurant = targetRestaurants[randomIndex];
+
+      logEvent(analytics, 'random-click', { restaurant: chosenRestaurant });
+      setSelectedRestaurant(chosenRestaurant);
+      setIsLoading(false);
+    }, 300);
   }
 
   // 클릭 수를 1초마다 초기화
@@ -123,17 +164,17 @@ const MainPage = () => {
   // esc 키를 누르면 모달을 닫는다.
   const handleKeyDown = (e: any) => {
     if (e.key === 'Escape') {
-      setIsOpenModal(false)
+      setIsOpenModal(false);
     }
   }
 
   useEffect(() => {
-    document.addEventListener('keydown', handleKeyDown)
+    document.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      document.removeEventListener('keydown', handleKeyDown)
+      document.removeEventListener('keydown', handleKeyDown);
     }
-  });
+  }, []);
 
   return (
     <Layout>
@@ -141,26 +182,23 @@ const MainPage = () => {
       <VerticalSpace size={36} />
       <img src={MomozziLogo} alt="Momozzi Logo" />
       <VerticalSpace size={32} />
-      <RandomButton
-        onClick={handleRandomClickWithLoading}
-      >
+      <RandomButton onClick={handleRandomClickWithLoading}>
         <img src={DiceIcon} alt="Dice Icon" />
         <span>랜덤돌리기</span>
       </RandomButton>
       <VerticalSpace size={32} />
-      <a href="https://www.instagram.com/jiwon.me/">
-        @jiwon.me
-      </a>
+      <a href="https://www.instagram.com/jiwon.me/">@jiwon.me</a>
+
       <Modal isOpen={isOpenModal}>
         <ModalInner>
           {
             isLoading
               ? <LoadSpinner />
               : <>
-                <RestaurantRecommendView restaurant={selectedRestaurant} />
-                <VerticalSpace size={16} />
-                <ModalButton onClick={() => setIsOpenModal(false)}>닫기</ModalButton>
-              </>
+                  <RestaurantRecommendView restaurant={selectedRestaurant} />
+                  <VerticalSpace size={16} />
+                  <ModalButton onClick={() => setIsOpenModal(false)}>닫기</ModalButton>
+                </>
           }
         </ModalInner>
       </Modal>
