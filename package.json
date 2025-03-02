@@ -17,10 +17,11 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.11.0",
     "react-router-dom": "^6.18.0",
-    "styled-components": "^6.1.1",
     "zustand": "^4.4.6"
   },
   "devDependencies": {
+    "@pandacss/dev": "^0.53.0",
+    "@pandacss/types": "^0.53.0",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.0.0",

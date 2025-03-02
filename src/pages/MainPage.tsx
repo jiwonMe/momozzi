@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import { css } from 'styled-system/css';
 import { useEffect, useRef, useState } from 'react';
 
 // ★ (1) react-router-dom 훅 불러오기
@@ -177,130 +177,114 @@ const MainPage = () => {
   }, []);
 
   return (
-    <Layout>
+    <div className={css({
+      padding: '16px',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      color: '#4D5355',
+      fontFamily: 'NEXON Lv2 Gothic',
+      fontSize: '14px',
+
+      '& a': {
+        color: '#8c9294',
+        fontFamily: 'NEXON Lv2 Gothic',
+        fontSize: '14px',
+        fontStyle: 'normal',
+        lineHeight: '20.619px',
+      }
+    })}>
       <AdBanner />
       <VerticalSpace size={36} />
       <img src={MomozziLogo} alt="Momozzi Logo" />
       <VerticalSpace size={32} />
-      <RandomButton onClick={handleRandomClickWithLoading}>
+      <button 
+        onClick={handleRandomClickWithLoading}
+        className={css({
+          border: 'none',
+          outline: 'none',
+          width: '200px',
+          height: '200px',
+          background: '#F9FAFB',
+          boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.05)',
+          borderRadius: '16px',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '16px',
+
+          '& span': {
+            color: '#4D5355',
+            fontFamily: 'NEXON Lv2 Gothic',
+            fontSize: '16px',
+            fontStyle: 'normal',
+            fontWeight: '700',
+            lineHeight: '29.619px',
+          },
+
+          '&:hover, &:focus': {
+            cursor: 'pointer',
+            background: '#f5f6f7',
+          }
+        })}
+      >
         <img src={DiceIcon} alt="Dice Icon" />
         <span>랜덤돌리기</span>
-      </RandomButton>
+      </button>
       <VerticalSpace size={32} />
       <a href="https://www.instagram.com/jiwon.me/">@jiwon.me</a>
 
       <Modal isOpen={isOpenModal}>
-        <ModalInner>
+        <div className={css({
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+        })}>
           {
             isLoading
               ? <LoadSpinner />
               : <>
                   <RestaurantRecommendView restaurant={selectedRestaurant} />
                   <VerticalSpace size={16} />
-                  <ModalButton onClick={() => setIsOpenModal(false)}>닫기</ModalButton>
+                  <button 
+                    onClick={() => setIsOpenModal(false)}
+                    className={css({
+                      border: 'none',
+                      outline: 'none',
+                      width: '200px',
+                      height: '40px',
+                      background: '#0F5777',
+                      boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.05)',
+                      borderRadius: '16px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '16px',
+                      color: '#ffffff',
+                      fontFamily: 'NEXON Lv2 Gothic OTF',
+                      fontSize: '16px',
+                      fontStyle: 'normal',
+                      fontWeight: '500',
+                      lineHeight: '29.619px',
+
+                      '&:hover, &:focus': {
+                        cursor: 'pointer',
+                        background: '#0f4f77',
+                      }
+                    })}
+                  >
+                    닫기
+                  </button>
                 </>
           }
-        </ModalInner>
+        </div>
       </Modal>
-    </Layout>
+    </div>
   )
 }
 
 export default MainPage
-
-const Layout = styled.div`
-  padding: 16px;
-
-  /* center  */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  color: #4D5355;
-  font-family: NEXON Lv2 Gothic;
-  font-size: 14px;
-
-  a {
-    color: #8c9294;
-    font-family: NEXON Lv2 Gothic;
-    font-size: 14px;
-    font-style: normal;
-    line-height: 20.619px; /* 185.119% */
-  }
-`
-
-const RandomButton = styled.button`
-  /* remove button style */
-  border: none;
-  outline: none;
-  background: none;
-
-  width: 200px;
-  height: 200px;
-
-  background: #F9FAFB;
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
-  border-radius: 16px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  gap: 16px;
-
-  span {
-    color: #4D5355;
-    font-family: NEXON Lv2 Gothic;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 29.619px; /* 185.119% */
-  }
-
-  &:hover, &:focus {
-    cursor: pointer;
-    background: #f5f6f7;
-  }
-`
-
-const ModalInner = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-
-const ModalButton = styled.button`
-  /* remove button style */
-  border: none;
-  outline: none;
-  background: none;
-
-  width: 200px;
-  height: 40px;
-
-  background: #0F5777;
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
-  border-radius: 16px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  gap: 16px;
-
-  color: #ffffff;
-  font-family: NEXON Lv2 Gothic OTF;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 29.619px; /* 185.119% */
-
-  &:hover, &:focus {
-    cursor: pointer;
-    background: #0f4f77;
-  }
-`

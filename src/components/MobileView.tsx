@@ -1,37 +1,33 @@
-import styled from 'styled-components';
+import { css } from 'styled-system/css';
 
 interface ViewportProps {
   children: React.ReactNode;
   className?: string;
 }
 
-const MobileViewport = ({ children, className }: ViewportProps) => {
-  return (
-    <FullScreen>
-      <ViewportLayout className={className}>{children}</ViewportLayout>
-    </FullScreen>
-  );
-};
+const MobileViewport = ({ children, className }: ViewportProps) => (
+  <div
+    className={css({
+      display: 'flex',
+      flexGrow: 1,
+      flexDirection: 'column',
+      alignItems: 'center',
+    })}
+  >
+    <div
+      className={`${className} ${css({
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100%',
+        maxWidth: '500px',
+        height: '100%',
+        borderLeft: '1px solid #ddd',
+        borderRight: '1px solid #ddd',
+      })}`}
+    >
+      {children}
+    </div>
+  </div>
+);
 
 export default MobileViewport;
-
-const FullScreen = styled.div`
-  display: flex;
-  flex-grow: 1;
-  flex-direction: column;
-
-  align-items: center;
-`;
-
-const ViewportLayout = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  width: 100%;
-  max-width: 500px;
-
-  height: 100%;
-
-  border-left: 1px solid #ddd;
-  border-right: 1px solid #ddd;
-`;
