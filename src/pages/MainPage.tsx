@@ -6,14 +6,17 @@ import { useLocation } from 'react-router-dom';
 
 import MomozziLogo from '../assets/momozzi-logo.svg';
 import DiceIcon from '../assets/dice-icon.svg';
-import VerticalSpace from '../components/VerticalSpace';
-import Modal from '../components/Modal';
-import RestaurantRecommendView from '../components/RestaurantRecommendView';
-import LoadSpinner from '../components/LoadSpinner';
+// 디자인 시스템 컴포넌트로 import 경로 교체
+import VerticalSpace from '../design-system/components/spacing/VerticalSpace';
+import Modal from '../design-system/components/modals/Modal';
+import RestaurantRecommendView from '../design-system/components/views/RestaurantRecommendView';
+import LoadSpinner from '../design-system/components/spinners/LoadSpinner';
 import { track } from '@vercel/analytics';
 import { logEvent } from 'firebase/analytics';
 import { analytics } from '../firebase';
-import AdBanner from '../components/AdBanner';
+import AdBanner from '../design-system/components/banners/AdBanner';
+import Button from '../design-system/components/buttons/Button';
+import { useTheme } from '../design-system/ThemeProvider';
 
 const restaurants = [
   "스시로지", 
@@ -118,6 +121,9 @@ const MainPage = () => {
 
   const clickCountRef = useRef<number>(0);
 
+  // useTheme 훅을 사용하여 테마 정보와 토글 함수 가져오기
+  const { theme, toggleTheme } = useTheme();
+
   // (3) 클릭 시 사용할 배열 결정
   const handleRandomClickWithLoading = () => {
     // 클릭 수 증가
@@ -195,48 +201,60 @@ const MainPage = () => {
         lineHeight: '20.619px',
       }
     })}>
+      {/* 테마 전환 버튼 추가 */}
+      <div className={css({
+        position: 'absolute',
+        top: '20px',
+        right: '20px',
+      })}>
+        <Button
+          onClick={toggleTheme}
+          variant="secondary"
+          size="sm"
+        >
+          {theme === 'light' ? '🌙' : '☀️'}
+        </Button>
+      </div>
+      
       <AdBanner />
       <VerticalSpace size={36} />
       <img src={MomozziLogo} alt="Momozzi Logo" />
       <VerticalSpace size={32} />
-      <button 
-        onClick={handleRandomClickWithLoading}
+      <div 
         className={css({
-          border: 'none',
-          outline: 'none',
           width: '200px',
           height: '200px',
-          background: '#F9FAFB',
-          boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.05)',
+          backgroundColor: { _light: '#F9FAFB', _dark: '#374151' },
+          boxShadow: { _light: '0px 4px 20px rgba(0, 0, 0, 0.05)', _dark: '0px 4px 20px rgba(0, 0, 0, 0.2)' },
           borderRadius: '16px',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
           gap: '16px',
-
-          '& span': {
-            color: '#4D5355',
-            fontFamily: 'NEXON Lv2 Gothic',
-            fontSize: '16px',
-            fontStyle: 'normal',
-            fontWeight: '700',
-            lineHeight: '29.619px',
-          },
-
-          '&:hover, &:focus': {
-            cursor: 'pointer',
-            background: '#f5f6f7',
+          cursor: 'pointer',
+          transition: 'all 0.2s ease-in-out',
+          '&:hover': {
+            backgroundColor: { _light: '#f5f6f7', _dark: '#4B5563' },
+            transform: 'scale(1.02)',
           }
         })}
+        onClick={handleRandomClickWithLoading}
       >
         <img src={DiceIcon} alt="Dice Icon" />
-        <span>랜덤돌리기</span>
-      </button>
+        <span className={css({
+          color: { _light: '#4D5355', _dark: '#F9FAFB' },
+          fontFamily: 'NEXON Lv2 Gothic',
+          fontSize: '16px',
+          fontWeight: '700',
+          lineHeight: '29.619px',
+          transition: 'color 0.2s ease-in-out',
+        })}>랜덤돌리기</span>
+      </div>
       <VerticalSpace size={32} />
       <a href="https://www.instagram.com/jiwon.me/">@jiwon.me</a>
 
-      <Modal isOpen={isOpenModal}>
+      <Modal isOpen={isOpenModal} onClose={() => setIsOpenModal(false)}>
         <div className={css({
           display: 'flex',
           flexDirection: 'column',
@@ -245,40 +263,17 @@ const MainPage = () => {
         })}>
           {
             isLoading
-              ? <LoadSpinner />
+              ? <LoadSpinner size={16} />
               : <>
                   <RestaurantRecommendView restaurant={selectedRestaurant} />
                   <VerticalSpace size={16} />
-                  <button 
+                  <Button 
                     onClick={() => setIsOpenModal(false)}
-                    className={css({
-                      border: 'none',
-                      outline: 'none',
-                      width: '200px',
-                      height: '40px',
-                      background: '#0F5777',
-                      boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.05)',
-                      borderRadius: '16px',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: '16px',
-                      color: '#ffffff',
-                      fontFamily: 'NEXON Lv2 Gothic OTF',
-                      fontSize: '16px',
-                      fontStyle: 'normal',
-                      fontWeight: '500',
-                      lineHeight: '29.619px',
-
-                      '&:hover, &:focus': {
-                        cursor: 'pointer',
-                        background: '#0f4f77',
-                      }
-                    })}
+                    variant="primary"
+                    size="md"
                   >
                     닫기
-                  </button>
+                  </Button>
                 </>
           }
         </div>

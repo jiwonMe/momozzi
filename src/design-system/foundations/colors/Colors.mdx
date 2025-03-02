@@ -1,0 +1,118 @@
+import { Meta } from '@storybook/blocks';
+import { colors } from './colors';
+
+<Meta title="Design System/Foundations/Colors" />
+
+# 색상 시스템
+
+Momozzi 앱의 시각적 아이덴티티를 구성하는 색상 시스템입니다. 
+이 시스템은 일관된 사용자 경험을 제공하고, 브랜드 정체성을 강화하며, 
+접근성을 보장하기 위해 설계되었습니다.
+
+## 주요 색상 팔레트
+
+Momozzi의 주요 색상은 청록색 계열로, 신선하고 현대적인 느낌을 전달합니다.
+
+| 이름 | 색상 코드 | 설명 |
+|------|-----------|------|
+| primary.50 | #e6f0f4 | 가장 밝은 primary 색상 |
+| primary.100 | #cce1e9 | 매우 밝은 primary 색상 |
+| primary.200 | #99c3d3 | 밝은 primary 색상 |
+| primary.300 | #66a5be | 중간 밝은 primary 색상 |
+| primary.400 | #3387a8 | 약간 밝은 primary 색상 |
+| primary.500 | #0F5777 | 기본 primary 색상 |
+| primary.600 | #0d4e6b | 약간 어두운 primary 색상 |
+| primary.700 | #0a3c52 | 어두운 primary 색상 |
+| primary.800 | #07293a | 매우 어두운 primary 색상 |
+| primary.900 | #031523 | 가장 어두운 primary 색상 |
+
+## 중립 색상 팔레트
+
+사용자 인터페이스의 배경, 텍스트, 구분선 등을 위한 중립 색상 팔레트입니다.
+
+| 이름 | 색상 코드 | 설명 |
+|------|-----------|------|
+| neutrals.white | #FFFFFF | 순수한 흰색 |
+| neutrals.50 | #F9FAFB | 아주 밝은 회색 (배경용) |
+| neutrals.100 | #F3F4F6 | 매우 밝은 회색 |
+| neutrals.200 | #E5E7EB | 밝은 회색 (구분선용) |
+| neutrals.300 | #D1D5DB | 중간 밝은 회색 |
+| neutrals.400 | #9CA3AF | 회색 (비활성화된 텍스트) |
+| neutrals.500 | #6B7280 | 중간 회색 |
+| neutrals.600 | #4D5355 | 기본 텍스트 색상 |
+| neutrals.700 | #374151 | 어두운 회색 (강조 텍스트) |
+| neutrals.800 | #1F2937 | 매우 어두운 회색 |
+| neutrals.900 | #111827 | 거의 검은색 |
+| neutrals.black | #000000 | 순수한 검은색 |
+
+## 피드백 색상 팔레트
+
+상태 표시와 피드백을 위한 색상 팔레트입니다.
+
+| 이름 | 색상 코드 | 설명 |
+|------|-----------|------|
+| feedback.error | #EF4444 | 오류 상태 표시 |
+| feedback.warning | #F59E0B | 경고 상태 표시 |
+| feedback.success | #10B981 | 성공 상태 표시 |
+| feedback.info | #3B82F6 | 정보 상태 표시 |
+
+## 색상 사용 가이드라인
+
+### 주요 색상 사용
+
+- **primary.500**: 주요 브랜드 색상, CTA 버튼, 중요 요소 강조
+- **primary.600 ~ 700**: 호버 상태, 활성화된 버튼 상태
+- **primary.200 ~ 400**: 보조 강조, 아이콘, 부가 정보
+- **primary.50 ~ 100**: 배경 강조, 선택된 상태 배경
+
+### 중립 색상 사용
+
+- **neutrals.white, neutrals.50**: 주요 배경 색상
+- **neutrals.100 ~ 200**: 카드 배경, 경계선
+- **neutrals.600**: 기본 텍스트 색상
+- **neutrals.400 ~ 500**: 보조 텍스트, 비활성화된 요소
+- **neutrals.700 ~ 900**: 제목, 강조 텍스트
+
+### 피드백 색상 사용
+
+- **feedback.error**: 오류 메시지, 삭제 버튼
+- **feedback.warning**: 주의 메시지, 경고 표시
+- **feedback.success**: 성공 메시지, 완료 표시
+- **feedback.info**: 정보 메시지, 도움말
+
+## 사용 예시
+
+```jsx
+import { css } from 'styled-system/css';
+
+// 주요 버튼
+<button className={css({
+  background: 'primary.500',
+  color: 'neutrals.white',
+  '&:hover': {
+    background: 'primary.600',
+  }
+})}>
+  버튼 텍스트
+</button>
+
+// 보조 버튼
+<button className={css({
+  background: 'neutrals.50',
+  color: 'neutrals.600',
+  border: '1px solid',
+  borderColor: 'neutrals.200',
+})}>
+  보조 버튼
+</button>
+
+// 오류 메시지
+<div className={css({
+  color: 'feedback.error',
+  backgroundColor: 'rgba(239, 68, 68, 0.1)',
+  padding: '2',
+  borderRadius: '4px',
+})}>
+  오류가 발생했습니다.
+</div>
+``` 

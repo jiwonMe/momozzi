@@ -1,0 +1,106 @@
+import { Meta } from '@storybook/blocks';
+import { spacing } from './spacing';
+
+<Meta title="Design System/Foundations/Spacing" />
+
+# 간격 시스템
+
+Momozzi 앱의 일관된 레이아웃과 구성 요소 간 간격을 유지하기 위해 설계된 간격 시스템입니다. 
+이 시스템은 여백(margin), 패딩(padding), 갭(gap)과 같은 공간 관련 속성을 정의합니다.
+
+## 간격 범위
+
+간격은 0부터 96까지의 범위로 구성되어 있으며, 각 값은 특정 용도에 맞게 설계되었습니다.
+
+| 토큰 | 값 | 픽셀 |
+|------|-----|------|
+| 0 | 0 | 0px |
+| px | 1px | 1px |
+| 0.5 | 0.125rem | 2px |
+| 1 | 0.25rem | 4px |
+| 2 | 0.5rem | 8px |
+| 3 | 0.75rem | 12px |
+| 4 | 1rem | 16px |
+| 5 | 1.25rem | 20px |
+| 6 | 1.5rem | 24px |
+| 8 | 2rem | 32px |
+| 10 | 2.5rem | 40px |
+| 12 | 3rem | 48px |
+| 16 | 4rem | 64px |
+| 20 | 5rem | 80px |
+| 24 | 6rem | 96px |
+| 32 | 8rem | 128px |
+| 40 | 10rem | 160px |
+| 48 | 12rem | 192px |
+| 64 | 16rem | 256px |
+| 80 | 20rem | 320px |
+| 96 | 24rem | 384px |
+| auto | auto | 자동 |
+
+## 사용 가이드라인
+
+### 작은 간격 (1-4)
+
+- **1 (4px)**: 매우 관련이 높은 요소 간 최소 간격
+- **2 (8px)**: 관련된 요소 그룹 내 간격
+- **3 (12px)**: 콤팩트한 컴포넌트 내부 간격
+- **4 (16px)**: 기본 컴포넌트 내부 간격
+
+### 중간 간격 (5-12)
+
+- **6 (24px)**: 컴포넌트 간 기본 간격
+- **8 (32px)**: 섹션 내 요소 간 간격
+- **10 (40px)**: 중요 섹션 간 간격
+- **12 (48px)**: 주요 콘텐츠 블록 간 간격
+
+### 큰 간격 (16-48)
+
+- **16 (64px)**: 큰 섹션 구분용 간격
+- **24 (96px)**: 페이지 상/하단 여백
+- **32 (128px)**: 주요 레이아웃 분리
+
+### 특수 간격
+
+- **auto**: 자동 마진 계산이 필요한 경우 (중앙 정렬 등)
+
+## 사용 예시
+
+```jsx
+import { css } from 'styled-system/css';
+import { VerticalSpace } from '../../components/spacing/VerticalSpace';
+
+// 컴포넌트에 패딩 적용
+<div className={css({
+  padding: '4', // 16px 패딩
+  paddingTop: '6', // 24px 상단 패딩
+  paddingBottom: '8', // 32px 하단 패딩
+})}>
+  콘텐츠
+</div>
+
+// 마진 적용
+<div className={css({
+  margin: '4', // 모든 방향 16px 마진
+  marginY: '6', // 상하 24px 마진
+  marginX: '8', // 좌우 32px 마진
+})}>
+  콘텐츠
+</div>
+
+// 갭 적용 (Flexbox/Grid)
+<div className={css({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '4', // 16px 갭
+})}>
+  <div>아이템 1</div>
+  <div>아이템 2</div>
+</div>
+
+// VerticalSpace 컴포넌트 사용
+<div>
+  <h2>제목</h2>
+  <VerticalSpace size={16} />
+  <p>본문 텍스트</p>
+</div>
+``` 

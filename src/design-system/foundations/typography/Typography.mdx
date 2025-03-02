@@ -1,0 +1,97 @@
+import { Meta } from '@storybook/blocks';
+import { typography } from './typography';
+
+<Meta title="Design System/Foundations/Typography" />
+
+# 타이포그래피 시스템
+
+Momozzi 앱에서 사용되는 타이포그래피 시스템입니다. 이 문서는 폰트 패밀리, 폰트 크기, 폰트 가중치, 그리고 줄 높이에 대한 가이드라인을 제공합니다.
+
+## 폰트 패밀리
+
+Momozzi 앱은 다음 두 가지 폰트 패밀리를 사용합니다:
+
+- **Primary**: NEXON Lv2 Gothic - 대부분의 텍스트에 사용
+- **Secondary**: NEXON Lv2 Gothic OTF - 특정 강조 텍스트에 사용
+
+## 폰트 크기
+
+다양한 요소에 일관된 크기를 적용하기 위해 정의된 폰트 크기 시스템입니다.
+
+| 이름 | 크기 | 사용 사례 |
+|------|------|-----------|
+| xs | 0.75rem (12px) | 아주 작은 텍스트, 캡션 |
+| sm | 0.875rem (14px) | 작은 텍스트, 보조 정보 |
+| base | 1rem (16px) | 기본 본문 텍스트 |
+| lg | 1.125rem (18px) | 강조 텍스트 |
+| xl | 1.25rem (20px) | 소제목 |
+| 2xl | 1.5rem (24px) | 중간 제목 |
+| 3xl | 1.875rem (30px) | 대제목 |
+| 4xl | 2.25rem (36px) | 섹션 제목 |
+| 5xl | 3rem (48px) | 페이지 제목 |
+
+## 폰트 가중치
+
+텍스트 강조 수준을 조절하기 위한 폰트 가중치입니다.
+
+| 이름 | 가중치 | 사용 사례 |
+|------|--------|-----------|
+| thin | 100 | 특별히 가벼운 텍스트 |
+| extralight | 200 | 매우 가벼운 텍스트 |
+| light | 300 | 가벼운 텍스트 |
+| normal | 400 | 기본 본문 텍스트 |
+| medium | 500 | 약간 강조된 텍스트 |
+| semibold | 600 | 중간 정도 강조된 텍스트 |
+| bold | 700 | 강조된 제목 |
+| extrabold | 800 | 매우 강조된 제목 |
+| black | 900 | 극도로 강조된 텍스트 |
+
+## 줄 높이
+
+텍스트의 가독성과 레이아웃을 개선하기 위한 줄 높이 옵션입니다.
+
+| 이름 | 값 | 사용 사례 |
+|------|-----|-----------|
+| none | 1 | 줄 간격이 없는 텍스트 |
+| tight | 1.25 | 매우 촘촘한 텍스트 |
+| snug | 1.375 | 다소 촘촘한 텍스트 |
+| normal | 1.5 | 일반적인 본문 텍스트 |
+| relaxed | 1.625 | 약간 여유 있는 텍스트 |
+| loose | 2 | 많은 여유가 있는 텍스트 |
+| custom | 29.619px | 특정 메인페이지에서 사용 중인 값 |
+
+## 사용 예시
+
+```jsx
+import { css } from 'styled-system/css';
+
+// 제목 스타일 적용
+<h1 className={css({
+  fontFamily: 'NEXON Lv2 Gothic',
+  fontSize: '3xl',
+  fontWeight: 'bold',
+  lineHeight: 'tight'
+})}>
+  Momozzi 타이틀
+</h1>
+
+// 본문 텍스트 적용
+<p className={css({
+  fontFamily: 'NEXON Lv2 Gothic',
+  fontSize: 'base',
+  fontWeight: 'normal',
+  lineHeight: 'normal'
+})}>
+  일반 본문 텍스트입니다.
+</p>
+
+// 강조 텍스트 적용
+<span className={css({
+  fontFamily: 'NEXON Lv2 Gothic OTF',
+  fontSize: 'lg',
+  fontWeight: 'semibold',
+  lineHeight: 'snug'
+})}>
+  강조된 텍스트입니다.
+</span>
+``` 

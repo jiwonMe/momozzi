@@ -1,0 +1,94 @@
+import { Meta } from '@storybook/blocks';
+import { shadows } from './shadows';
+
+<Meta title="Design System/Foundations/Shadows" />
+
+# 그림자 시스템
+
+Momozzi 앱의 요소에 깊이와 입체감을 부여하기 위한 그림자 시스템입니다. 
+이 시스템은 일관된 시각적 계층 구조를 만들고 사용자 인터페이스의 요소들이 서로 어떻게 관련되는지 표현하는 데 사용됩니다.
+
+## 그림자 변형
+
+각 그림자 변형은 특정 용도와 효과를 위해 설계되었습니다.
+
+### 기본 그림자
+
+| 이름 | 설명 | 사용 사례 |
+|------|------|-----------|
+| sm | 0 1px 2px 0 rgba(0, 0, 0, 0.05) | 작은 요소, 아이콘, 태그 |
+| md | 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) | 작은 카드, 버튼 |
+| lg | 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) | 카드, 컨테이너 |
+| xl | 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) | 모달, 팝오버 |
+| 2xl | 0 25px 50px -12px rgba(0, 0, 0, 0.25) | 대형 모달, 고정된 요소 |
+
+### 특수 그림자
+
+| 이름 | 설명 | 사용 사례 |
+|------|------|-----------|
+| inner | inset 0 2px 4px 0 rgba(0, 0, 0, 0.06) | 눌러진 버튼, 선택된 요소 |
+| outline | 0 0 0 3px rgba(66, 153, 225, 0.5) | 포커스 상태 |
+| none | none | 그림자 없음 |
+| button | 0px 4px 20px rgba(0, 0, 0, 0.05) | 앱에서 사용 중인 버튼 그림자 |
+
+## 사용 가이드라인
+
+### 그림자 깊이와 레이어
+
+그림자 강도는 요소의 시각적 중요도와 관련이 있습니다:
+
+1. **표면 요소 (sm, md)**: 페이지에서 약간 들어올려진 평면적인 요소들
+2. **상호작용 요소 (md, lg)**: 버튼, 카드와 같이 상호작용이 가능한 요소
+3. **부유 요소 (xl, 2xl)**: 모달, 팝업과 같이 기본 콘텐츠 위에 떠 있는 요소
+
+### 상태에 따른 그림자
+
+- 호버 상태: 그림자를 약간 증가시켜 상호작용이 가능함을 나타냄
+- 눌린 상태: `inner` 그림자를 적용하여 요소가 눌려짐을 시각적으로 표현
+- 포커스 상태: `outline` 그림자를 적용하여 접근성 포커스를 표시
+
+## 사용 예시
+
+```jsx
+import { css } from 'styled-system/css';
+
+// 기본 카드에 그림자 적용
+<div className={css({
+  padding: '4',
+  borderRadius: '8px',
+  background: 'white',
+  boxShadow: 'md'
+})}>
+  기본 카드 콘텐츠
+</div>
+
+// 모달에 그림자 적용
+<div className={css({
+  padding: '6', 
+  borderRadius: '12px',
+  background: 'white',
+  boxShadow: 'xl'
+})}>
+  모달 콘텐츠
+</div>
+
+// 버튼에 그림자 적용
+<button className={css({
+  padding: '2',
+  borderRadius: '4px',
+  background: 'primary.500',
+  color: 'white',
+  boxShadow: 'button',
+  '&:hover': {
+    boxShadow: 'lg'
+  },
+  '&:active': {
+    boxShadow: 'inner'
+  },
+  '&:focus': {
+    boxShadow: 'outline'
+  }
+})}>
+  버튼 텍스트
+</button>
+``` 
